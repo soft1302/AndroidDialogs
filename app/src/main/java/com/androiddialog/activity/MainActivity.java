@@ -2,11 +2,9 @@ package com.androiddialog.activity;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,8 +12,8 @@ import com.androiddialog.R;
 import com.androiddialog.dialog.PictureSelectDialog;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private Toolbar toolbar;
-    private TextView tv_toolbar_title;
+    private ImageView ic_back, ic_menu;
+    private TextView tv_toolbar_title, tv_back;
 
     private Button button;
 
@@ -34,40 +32,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        toolbar.setNavigationIcon(R.mipmap.ic_back);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        tv_toolbar_title = (TextView) findViewById(R.id.tv_toolbar_title);
+        ic_back = (ImageView) findViewById(R.id.ic_back);
+        ic_menu = (ImageView) findViewById(R.id.ic_menu);
+        ic_back.setImageResource(R.mipmap.ic_back);
+        ic_menu.setImageResource(R.mipmap.ic_search);
+        tv_back = (TextView) findViewById(R.id.tv_back);
+        tv_back.setText("返回");
+        ic_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
             }
         });
-        tv_toolbar_title = (TextView) toolbar.findViewById(R.id.tv_toolbar_title);
         tv_toolbar_title.setText("自定义dialog");
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_search:
-                Toast.makeText(MainActivity.this, "搜索", Toast.LENGTH_SHORT).show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void showDialog() {
-        final Dialog dialog = new PictureSelectDialog().creatRequestDialog(MainActivity.this);
+        final Dialog dialog = new PictureSelectDialog().creatDialog(MainActivity.this);
         dialog.show();
         dialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
             @Override

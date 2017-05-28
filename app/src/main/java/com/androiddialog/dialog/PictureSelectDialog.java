@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.androiddialog.R;
 
 public class PictureSelectDialog {
-    public static Dialog creatRequestDialog(final Context context) {
+    public static Dialog creatDialog(final Context context) {
         final Dialog dialog = new Dialog(context, R.style.dialog);
         dialog.setContentView(R.layout.dialog_picture_select);
         Window window = dialog.getWindow();
@@ -22,6 +22,7 @@ public class PictureSelectDialog {
         int width = outMetrics.widthPixels;
         lp.gravity = Gravity.BOTTOM;
         lp.width = width;
+        dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
 
